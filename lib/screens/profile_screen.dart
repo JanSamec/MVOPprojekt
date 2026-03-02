@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                       width: 80,
                       height: 80,
                       decoration: const BoxDecoration(
-                        color: Color(0xFF00FF88),
+                        color: Color(0xFF00EE7C),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -84,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('About Pulse - Version 1.0.0'),
-                            backgroundColor: Color(0xFF00FF88),
+                            backgroundColor: Color(0xFF00EE7C),
                           ),
                         );
                       },
@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Opening legal documents...'),
-                            backgroundColor: Color(0xFF00FF88),
+                            backgroundColor: Color(0xFF00EE7C),
                           ),
                         );
                       },
@@ -151,10 +151,10 @@ class ProfileScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0xFF00FF88).withOpacity(0.1),
+                color: const Color(0xFF00EE7C).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: const Color(0xFF00FF88), size: 24),
+              child: Icon(icon, color: const Color(0xFF00EE7C), size: 24),
             ),
             const SizedBox(width: 15),
             Expanded(

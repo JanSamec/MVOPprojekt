@@ -25,7 +25,7 @@ class WorkoutScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.black),
+                    icon: const Icon(Icons.edit, color: Color(0xFF1A1A1A)),
                     onPressed: () => _showEditGoalDialog(context, state),
                   ),
                 ],
@@ -67,7 +67,7 @@ class WorkoutScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -79,7 +79,7 @@ class WorkoutScreen extends StatelessWidget {
                 TextSpan(
                   text: '${state.totalCaloriesBurned} kcal ',
                   style: const TextStyle(
-                    color: Color(0xFF00FF88),
+                    color: Color(0xFF00EE7C),
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -98,15 +98,15 @@ class WorkoutScreen extends StatelessWidget {
           const SizedBox(height: 15),
           Text(
             '$percentage% done',
-            style: const TextStyle(color: Color(0xFF00FF88), fontSize: 16),
+            style: const TextStyle(color: Color(0xFF00EE7C), fontSize: 16),
           ),
           const SizedBox(height: 10),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: LinearProgressIndicator(
               value: progress > 1.0 ? 1.0 : progress,
-              backgroundColor: Colors.white,
-              valueColor: const AlwaysStoppedAnimation(Color(0xFF00FF88)),
+              backgroundColor: const Color(0xFFF5F5F7),
+              valueColor: const AlwaysStoppedAnimation(Color(0xFF00EE7C)),
               minHeight: 12,
             ),
           ),
@@ -122,7 +122,7 @@ class WorkoutScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -131,7 +131,7 @@ class WorkoutScreen extends StatelessWidget {
           Text(
             '$hours hours $minutes minutes',
             style: const TextStyle(
-              color: Color(0xFF00FF88),
+              color: Color(0xFF00EE7C),
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -151,7 +151,7 @@ class WorkoutScreen extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(30),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: const Color(0xFF1A1A1A),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Center(
@@ -166,7 +166,7 @@ class WorkoutScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -184,7 +184,7 @@ class WorkoutScreen extends StatelessWidget {
                   child: Text(
                     workout['name'],
                     style: const TextStyle(
-                      color: Color(0xFF00FF88),
+                      color: Color(0xFF00EE7C),
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -213,12 +213,13 @@ class WorkoutScreen extends StatelessWidget {
   }
 
   Widget _buildStartButton(BuildContext context, AppState state) {
-    return Center(
+    return SizedBox(
+      width: double.infinity,
       child: ElevatedButton(
         onPressed: () => _showAddWorkoutDialog(context, state),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
-          foregroundColor: const Color(0xFF00FF88),
+          backgroundColor: const Color(0xFF1A1A1A),
+          foregroundColor: const Color(0xFF00EE7C),
           padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 18),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
@@ -381,7 +382,7 @@ class WorkoutScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Workout added: $selectedActivity - $calories kcal'),
-                            backgroundColor: const Color(0xFF00FF88),
+                            backgroundColor: const Color(0xFF00EE7C),
                           ),
                         );
                       } else {
@@ -402,8 +403,8 @@ class WorkoutScreen extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: const Color(0xFF00FF88),
+                    backgroundColor: const Color(0xFF1A1A1A),
+                    foregroundColor: const Color(0xFF00EE7C),
                   ),
                   child: const Text('Add'),
                 ),
@@ -416,14 +417,15 @@ class WorkoutScreen extends StatelessWidget {
   }
 
   void _showEditGoalDialog(BuildContext context, AppState state) {
-    final goalController = TextEditingController(text: (state.caloriesGoal).toString());
+    final calorieGoalController = TextEditingController(text: (state.caloriesGoal).toString());
+    final timeGoalController = TextEditingController(text: (state.workoutGoal).toString());
 
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: const Text('Edit Calorie Goal'),
+          title: const Text('Edit Goals'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -431,10 +433,24 @@ class WorkoutScreen extends StatelessWidget {
               const Text('Daily calorie goal (kcal)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               TextField(
-                controller: goalController,
+                controller: calorieGoalController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Enter calorie goal',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text('Daily time goal (minutes)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              TextField(
+                controller: timeGoalController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'Enter time goal in minutes',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -450,23 +466,34 @@ class WorkoutScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                if (goalController.text.isNotEmpty) {
-                  final goal = int.tryParse(goalController.text);
-                  if (goal != null && goal > 0) {
-                    state.updateWorkoutGoal(goal);
-                    Navigator.pop(dialogContext);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Goal updated successfully!'),
-                        backgroundColor: Color(0xFF00FF88),
-                      ),
-                    );
+                bool updated = false;
+                if (calorieGoalController.text.isNotEmpty) {
+                  final calorieGoal = int.tryParse(calorieGoalController.text);
+                  if (calorieGoal != null && calorieGoal > 0) {
+                    state.updateWorkoutGoal(calorieGoal);
+                    updated = true;
                   }
+                }
+                if (timeGoalController.text.isNotEmpty) {
+                  final timeGoal = int.tryParse(timeGoalController.text);
+                  if (timeGoal != null && timeGoal > 0) {
+                    state.updateTimeGoal(timeGoal);
+                    updated = true;
+                  }
+                }
+                if (updated) {
+                  Navigator.pop(dialogContext);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Goals updated successfully!'),
+                      backgroundColor: Color(0xFF00EE7C),
+                    ),
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: const Color(0xFF00FF88),
+                backgroundColor: const Color(0xFF1A1A1A),
+                foregroundColor: const Color(0xFF00EE7C),
               ),
               child: const Text('Save'),
             ),

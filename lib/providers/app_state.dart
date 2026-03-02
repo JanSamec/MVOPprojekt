@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AppState extends ChangeNotifier {
   int caloriesBurned = 0;
@@ -11,10 +12,11 @@ class AppState extends ChangeNotifier {
   int sleepMinutes = 0;
   int sleepGoal = 480;
 
-  String firstName = 'Mark';
-  String lastName = 'Johnson';
-  String email = 'mark.johnson@email.com';
-  String phoneNumber = '+1 234 567 8900';
+  String firstName = '';
+  String lastName = '';
+  String email = '';
+  String phoneNumber = '';
+  int age = 0;
 
   List<Map<String, dynamic>> weekActivity = [
     {'day': 'Sun', 'hours': 0},
@@ -42,8 +44,10 @@ class AppState extends ChangeNotifier {
 
   List<Map<String, dynamic>> meals = [];
 
+  Set<String> savedFoods = {};
+
   bool hasMealPlan = false;
-  String userName = 'Mark';
+  String userName = '';
   String bedtime = '11:00 PM';
   String wakeTime = '7:00 AM';
 
@@ -82,6 +86,21 @@ class AppState extends ChangeNotifier {
   int get todaySleepMinutes {
     if (sleepHistory.isEmpty) return 0;
     return sleepHistory.last['duration'] as int;
+  }
+
+  Future<void> loadUserData(String uid) async {
+    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final data = doc.data();
+    if (data != null) {
+      final fullName = data['fullName'] as String? ?? '';
+      final parts = fullName.trim().split(' ');
+      firstName = parts.isNotEmpty ? parts.first : '';
+      lastName = parts.length > 1 ? parts.sublist(1).join(' ') : '';
+      email = data['email'] as String? ?? '';
+      age = data['age'] as int? ?? 0;
+      userName = firstName;
+      notifyListeners();
+    }
   }
 
   void updateProfile(String first, String last, String mail, String phone) {
@@ -146,6 +165,11 @@ class AppState extends ChangeNotifier {
 
   void updateWorkoutGoal(int newGoal) {
     caloriesGoal = newGoal;
+    notifyListeners();
+  }
+
+  void updateTimeGoal(int newGoal) {
+    workoutGoal = newGoal;
     notifyListeners();
   }
 
@@ -220,5 +244,32 @@ class AppState extends ChangeNotifier {
 
     final rate = caloriesPerMinute[activity] ?? 5.0;
     return (rate * durationMinutes).round();
+  }
+
+  void addMeal(String name, String type, int calories, int protein, int carbs, int fat) {
+    meals.add({
+      'name': name,
+      'type': type,
+      'calories': calories,
+      'protein': protein,
+      'carbs': carbs,
+      'fat': fat,
+      'timestamp': DateTime.now(),
+    });
+    caloriesGained = totalCaloriesFromMeals;
+    notifyListeners();
+  }
+
+  void toggleSavedFood(String foodName) {
+    if (savedFoods.contains(foodName)) {
+      savedFoods.remove(foodName);
+    } else {
+      savedFoods.add(foodName);
+    }
+    notifyListeners();
+  }
+
+  bool isFoodSaved(String foodName) {
+    return savedFoods.contains(foodName);
   }
 }

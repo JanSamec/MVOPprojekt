@@ -25,7 +25,7 @@ class SleepScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.black),
+                    icon: const Icon(Icons.edit, color: Color(0xFF1A1A1A)),
                     onPressed: () => _showEditGoalDialog(context, state),
                   ),
                 ],
@@ -64,7 +64,7 @@ class SleepScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -73,7 +73,7 @@ class SleepScreen extends StatelessWidget {
           Text(
             '$hours hours $minutes minutes',
             style: const TextStyle(
-              color: Color(0xFF00FF88),
+              color: Color(0xFF00EE7C),
               fontSize: 26,
               fontWeight: FontWeight.bold,
             ),
@@ -86,7 +86,7 @@ class SleepScreen extends StatelessWidget {
           const SizedBox(height: 15),
           Text(
             '$percentage% done',
-            style: const TextStyle(color: Color(0xFF00FF88), fontSize: 16),
+            style: const TextStyle(color: Color(0xFF00EE7C), fontSize: 16),
           ),
           const SizedBox(height: 10),
           ClipRRect(
@@ -94,7 +94,7 @@ class SleepScreen extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress > 1.0 ? 1.0 : progress,
               backgroundColor: Colors.grey[800],
-              valueColor: const AlwaysStoppedAnimation(Color(0xFF00FF88)),
+              valueColor: const AlwaysStoppedAnimation(Color(0xFF00EE7C)),
               minHeight: 12,
             ),
           ),
@@ -143,7 +143,7 @@ class SleepScreen extends StatelessWidget {
                 width: 40,
                 height: height,
                 decoration: BoxDecoration(
-                  color: hours > 0 ? Colors.black : Colors.grey[200],
+                  color: hours > 0 ? const Color(0xFF1A1A1A) : Colors.grey[200],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: hours > 0
@@ -151,7 +151,7 @@ class SleepScreen extends StatelessWidget {
                         child: Text(
                           '${hours}hr',
                           style: const TextStyle(
-                            color: Color(0xFF00FF88),
+                            color: Color(0xFF00EE7C),
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
@@ -189,14 +189,14 @@ class SleepScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: const Color(0xFF1A1A1A),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
                       child: Text(
                         state.bedtime,
                         style: const TextStyle(
-                          color: Color(0xFF00FF88),
+                          color: Color(0xFF00EE7C),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -220,14 +220,14 @@ class SleepScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: const Color(0xFF1A1A1A),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
                       child: Text(
                         state.wakeTime,
                         style: const TextStyle(
-                          color: Color(0xFF00FF88),
+                          color: Color(0xFF00EE7C),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -247,7 +247,7 @@ class SleepScreen extends StatelessWidget {
                 onPressed: () => _showSuggestTimeDialog(context, state),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[200],
-                  foregroundColor: Colors.black,
+                  foregroundColor: const Color(0xFF1A1A1A),
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -264,11 +264,11 @@ class SleepScreen extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: const Color(0xFF1A1A1A),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: IconButton(
-                icon: const Icon(Icons.add, color: Color(0xFF00FF88), size: 26),
+                icon: const Icon(Icons.add, color: Color(0xFF00EE7C), size: 26),
                 onPressed: () => _showAddSleepDialog(context, state),
               ),
             ),
@@ -443,7 +443,7 @@ class SleepScreen extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Sleep record added: ${hours}h ${minutes}m'),
-                          backgroundColor: const Color(0xFF00FF88),
+                          backgroundColor: const Color(0xFF00EE7C),
                         ),
                       );
                     } else {
@@ -456,8 +456,8 @@ class SleepScreen extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: const Color(0xFF00FF88),
+                    backgroundColor: const Color(0xFF1A1A1A),
+                    foregroundColor: const Color(0xFF00EE7C),
                   ),
                   child: const Text('Add'),
                 ),
@@ -512,15 +512,15 @@ class SleepScreen extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Sleep goal updated successfully!'),
-                        backgroundColor: Color(0xFF00FF88),
+                        backgroundColor: Color(0xFF00EE7C),
                       ),
                     );
                   }
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: const Color(0xFF00FF88),
+                backgroundColor: const Color(0xFF1A1A1A),
+                foregroundColor: const Color(0xFF00EE7C),
               ),
               child: const Text('Save'),
             ),
@@ -602,8 +602,8 @@ class SleepScreen extends StatelessWidget {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF00FF88),
-                          foregroundColor: Colors.black,
+                          backgroundColor: const Color(0xFF00EE7C),
+                          foregroundColor: const Color(0xFF1A1A1A),
                         ),
                         child: const Text('Calculate'),
                       ),
@@ -642,13 +642,13 @@ class SleepScreen extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Time updated successfully!'),
-                          backgroundColor: Color(0xFF00FF88),
+                          backgroundColor: Color(0xFF00EE7C),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: const Color(0xFF00FF88),
+                      backgroundColor: const Color(0xFF1A1A1A),
+                      foregroundColor: const Color(0xFF00EE7C),
                     ),
                     child: const Text('Apply'),
                   ),

@@ -13,7 +13,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
 
   @override
   void initState() {
@@ -23,7 +22,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _firstNameController.text = state.firstName;
       _lastNameController.text = state.lastName;
       _emailController.text = state.email;
-      _phoneController.text = state.phoneNumber;
     });
   }
 
@@ -32,7 +30,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
     super.dispose();
   }
 
@@ -97,8 +94,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             _buildTextField('Last name', _lastNameController),
             const SizedBox(height: 20),
             _buildTextField('Email address', _emailController),
-            const SizedBox(height: 20),
-            _buildTextField('Phone number', _phoneController),
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
@@ -107,7 +102,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   _firstNameController.text,
                   _lastNameController.text,
                   _emailController.text,
-                  _phoneController.text,
+                  state.phoneNumber,
                 );
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -166,7 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                           const SizedBox(height: 3),
                           Text(
-                            'Delete your Sphere account',
+                            'Delete your Pulse account',
                             style: TextStyle(fontSize: 13, color: Colors.grey[600]),
                           ),
                         ],

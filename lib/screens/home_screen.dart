@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
       width: 45,
       height: 70,
       decoration: BoxDecoration(
-        color: active ? Colors.black : Colors.grey[200],
+        color: active ? const Color(0xFF1A1A1A) : Colors.grey[200],
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
           if (active)
             const Padding(
               padding: EdgeInsets.only(top: 8),
-              child: Icon(Icons.check, color: Color(0xFF00FF88), size: 20),
+              child: Icon(Icons.check, color: Color(0xFF00EE7C), size: 20),
             ),
         ],
       ),
@@ -109,14 +109,14 @@ class HomeScreen extends StatelessWidget {
           width: 40,
           height: hours * 30.0,
           decoration: BoxDecoration(
-            color: hours > 0 ? Colors.black : Colors.grey[200],
+            color: hours > 0 ? const Color(0xFF1A1A1A) : Colors.grey[200],
             borderRadius: BorderRadius.circular(20),
           ),
           child: hours > 0
               ? Center(
                   child: Text(
                     '${hours}hr',
-                    style: const TextStyle(color: Color(0xFF00FF88), fontSize: 12),
+                    style: const TextStyle(color: Color(0xFF00EE7C), fontSize: 12),
                   ),
                 )
               : null,
@@ -146,7 +146,7 @@ class HomeScreen extends StatelessWidget {
           'Calories gained',
           '${state.totalCaloriesFromMeals} kcal',
           '${state.totalProteinFromMeals}g protein\n${state.totalCarbsFromMeals}g carbs\n${state.totalFatFromMeals}g fat',
-          Icons.restaurant,
+          Icons.lunch_dining,
           showArrow: true,
           onTap: () => onNavigateToTab(1),
         ),
@@ -155,7 +155,7 @@ class HomeScreen extends StatelessWidget {
           'Calories burned',
           '${state.totalCaloriesBurned} kcal',
           'Total workout time:\n$workoutHours hours $workoutMinutes minutes',
-          Icons.favorite,
+          Icons.fitness_center,
           showArrow: true,
           onTap: () => onNavigateToTab(2),
         ),
@@ -164,8 +164,7 @@ class HomeScreen extends StatelessWidget {
           'Water Intake',
           '${state.waterIntake.toStringAsFixed(1)} liters',
           '${(state.waterIntake * 100).toInt()}% out of daily goal',
-          Icons.water_drop,
-          progress: state.waterIntake,
+          Icons.water_drop_outlined,
           showArrow: false,
         ),
         _buildMetricCard(
@@ -173,13 +172,9 @@ class HomeScreen extends StatelessWidget {
           'Sleep',
           sleepHours > 0 || sleepMinutes > 0 ? '${sleepHours}h ${sleepMinutes}m' : '0h 0m',
           '',
-          Icons.bedtime,
+          Icons.bedtime_outlined,
           showArrow: true,
           onTap: () => onNavigateToTab(3),
-          customContent: CustomPaint(
-            size: const Size(60, 30),
-            painter: SleepWavePainter(),
-          ),
         ),
       ],
     );
@@ -191,83 +186,69 @@ class HomeScreen extends StatelessWidget {
     String value,
     String details,
     IconData icon, {
-    double? progress,
-    Widget? customContent,
     bool showArrow = true,
     VoidCallback? onTap,
   }) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(title, style: const TextStyle(color: Colors.white, fontSize: 13)),
-                if (showArrow)
-                  Icon(Icons.arrow_forward_ios, color: const Color(0xFF00FF88), size: 16),
-              ],
-            ),
-            const Spacer(),
-            Text(
-              value,
-              style: const TextStyle(
-                color: Color(0xFF00FF88),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            if (progress != null)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: LinearProgressIndicator(
-                  value: progress,
-                  backgroundColor: Colors.grey[800],
-                  valueColor: const AlwaysStoppedAnimation(Color(0xFF00FF88)),
-                  minHeight: 8,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: const BoxDecoration(color: Color(0xFF1A1A1A)),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Faded background icon
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Icon(
+                    icon,
+                    color: Colors.white.withValues(alpha: 0.08),
+                    size: 76,
+                  ),
                 ),
-              )
-            else if (customContent != null)
-              customContent
-            else
-              Text(
-                details,
-                style: TextStyle(color: Colors.grey[400], fontSize: 10, height: 1.3),
               ),
-          ],
+              // Card content
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(title, style: const TextStyle(color: Colors.white, fontSize: 13)),
+                        if (showArrow)
+                          const Icon(Icons.arrow_forward_ios, color: Color(0xFF00EE7C), size: 16),
+                      ],
+                    ),
+                    const Spacer(),
+                    if (details.isNotEmpty) ...[
+                      Text(
+                        details,
+                        style: TextStyle(color: Colors.grey[400], fontSize: 10, height: 1.3),
+                      ),
+                      const SizedBox(height: 6),
+                    ],
+                    Text(
+                      value,
+                      style: const TextStyle(
+                        color: Color(0xFF00EE7C),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class SleepWavePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFF00FF88)
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
-    final path = Path();
-    path.moveTo(0, size.height / 2);
-
-    for (double i = 0; i < size.width; i++) {
-      path.lineTo(i, size.height / 2 + 10 * (i % 2 == 0 ? 1 : -1));
-    }
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}

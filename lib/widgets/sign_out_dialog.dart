@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignOutDialog extends StatelessWidget {
   const SignOutDialog({Key? key}) : super(key: key);
@@ -79,12 +80,7 @@ class SignOutDialog extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Signed out successfully'),
-                      backgroundColor: Color(0xFF00FF88),
-                    ),
-                  );
+                  FirebaseAuth.instance.signOut();
                 },
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.black,
